@@ -1,4 +1,5 @@
 <template>
+	<h1>Shopping Cart</h1>
 	<ul>
 		<li v-for="item in list">
 			{{ item.name }}
