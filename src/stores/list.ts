@@ -1,5 +1,6 @@
-import { defineStore } from 'pinia';
 import type { Item } from '@/models/item.model';
+
+import { defineStore } from 'pinia';
 
 export const useListStore = defineStore({
   id: "list",
@@ -8,9 +9,18 @@ export const useListStore = defineStore({
      list: [] as Item[],
    }
   },
+  getters: {
+    nextId(): string{
+      return `local-${this.list.length}`
+    },
+    getItemById : (state) => {
+      return (id: string) => state.list.find((item) => item.id == id)
+    }
+  },
   actions: {
     addToList(name: string) {
-      this.list.push({ name });
+      const id: string = this.nextId;
+      this.list.push({ id, name });
     },
   },
 });
