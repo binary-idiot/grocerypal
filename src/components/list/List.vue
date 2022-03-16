@@ -19,7 +19,7 @@
 	const store = useListStore();
 	const { list } = storeToRefs(store);
 
-	let newItem: Ref<Item> = ref({id: '',name: ''});
+	const newItem: Ref<Item> = ref({id: '',name: ''});
 
 	const addItemToList = () => {
 		store.addToList(newItem.value.name);
