@@ -1,16 +1,19 @@
 import type { Item } from '@/models/item.model';
 
 import { defineStore } from 'pinia';
+import { Database } from '@/helpers/db';
 
+const db: Database = new Database();
+const initialItems = await db.getItems()
 export const useListStore = defineStore({
   id: "list",
   state: () => {
    return {
-     list: [] as Item[],
+     list: (initialItems || []) as Item[],
    }
   },
   getters: {
-    nextId(): string{
+    nextId(): string {
       return `local-${this.list.length}`
     },
     getItemById : (state) => {
@@ -18,8 +21,11 @@ export const useListStore = defineStore({
     }
   },
   actions: {
-    addToList(name: string) {
+    async addToList(name: string) {
       const id: string = this.nextId;
+      const item: Item = {id, name};
+
+      await db.putItem(item);
       this.list.push({ id, name });
     },
   },
