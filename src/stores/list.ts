@@ -28,5 +28,10 @@ export const useListStore = defineStore({
       await db.putItem(item);
       this.list.push({ id, name });
     },
+
+    async deleteFromList(id: string) {
+      await db.deleteItem(id);
+      this.list = this.list.filter( i => i.id != id);
+    }
   },
 });

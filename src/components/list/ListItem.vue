@@ -1,5 +1,5 @@
 <template>
-	<li>{{ item.name }}</li>
+	<li @click="store.deleteFromList(item.id)">{{ item.name }}</li>
 </template>
 
 <script setup lang="ts">

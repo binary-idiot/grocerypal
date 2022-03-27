@@ -24,4 +24,8 @@ export class Database extends Dexie {
 	async putItem(item: Item) {
 		return await this.items.put(item);
 	}
+
+	async deleteItem(id: string) {
+		return await this.items.delete(id);
+	}
 }
