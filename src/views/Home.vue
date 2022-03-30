@@ -8,5 +8,5 @@
 	import List from '@/components/list/List.vue';
 </script>
 
-<style>
+<style module lang="scss">
 </style>

@@ -1,0 +1,30 @@
+<template>
+	<div :class="$style.listAdd">
+		<input type="text" @keydown.enter="addItemToList()" v-model="newItem.name">
+		<button @click="addItemToList()">Add</button>
+	</div>
+</template>
+
+<script setup lang="ts">
+	import type { Ref } from 'vue';
+	import type { Item } from '@/models/item.model';
+
+	import { ref } from 'vue';
+	import { useItemStore } from '@/stores/list';
+
+	const store = useItemStore();
+	store.loadItems();
+
+	const newItem: Ref<Item> = ref({id: '',name: ''});
+
+	const addItemToList = () => {
+		store.addToList(newItem.value.name);
+		newItem.value.name = ''
+	}
+</script>
+
+<style module lang="scss">
+   .listAdd {
+	   display: flex;
+   }
+</style>

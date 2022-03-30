@@ -2,31 +2,20 @@
 	<ul>
 		<ListItem v-for="item in items" :id="item.id" />
 	</ul>
-	<input type="text" @keydown.enter="addItemToList()" v-model="newItem.name">
-	<button @click="addItemToList()">Add</button>
+	<ListAdd />
 </template>
 
 <script setup lang="ts">
-	import type { Ref } from 'vue';
-	import type { Item } from '@/models/item.model';
-
-	import { ref } from 'vue';
 	import { storeToRefs } from 'pinia';
 	import { useItemStore } from '@/stores/list';
 
 	import ListItem from '@/components/list/ListItem.vue'
+	import ListAdd from '@/components/list/ListAdd.vue';
 	
 	const store = useItemStore();
 	store.loadItems();
 	
 	const { items } = storeToRefs(store);
-
-	const newItem: Ref<Item> = ref({id: '',name: ''});
-
-	const addItemToList = () => {
-		store.addToList(newItem.value.name);
-		newItem.value.name = ''
-	}
 </script>
 
 <style module lang="scss">
