@@ -1,5 +1,5 @@
 <template>
-	<h1>Shopping Cart</h1>
+	<h1>Grocery Pal</h1>
 	<List/>
 	
 </template>

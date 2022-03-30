@@ -10,8 +10,8 @@ export default defineConfig({
     VitePWA({
       includeAssets: ['smask-icon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Shopping Cart',
-        short_name: 'Shopping Cart',
+        name: 'Grocery Pal',
+        short_name: 'Groceries',
         description: 'Manage your shopping with a sharable lists and a cart calculator',
         theme_color: '#2b5797',
         icons: [

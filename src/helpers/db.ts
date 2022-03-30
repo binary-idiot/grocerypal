@@ -1,7 +1,7 @@
 import type { Item } from '@/models/item.model'
 import { Dexie, type Table } from 'dexie';
 
-const DB_NAME: string = 'shoppingcart_db';
+const DB_NAME: string = 'grocerypal_db';
 
 export class Database extends Dexie {
 

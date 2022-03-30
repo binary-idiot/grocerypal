@@ -1,4 +1,4 @@
-# shoppingcart
+# Grocery Pal
 
 ## Project Setup
 
