@@ -1,6 +1,6 @@
 <template>
 	<ul>
-		<ListItem v-for="item in list" :id="item.id" />
+		<ListItem v-for="item in items" :id="item.id" />
 	</ul>
 	<input type="text" @keydown.enter="addItemToList()" v-model="newItem.name">
 	<button @click="addItemToList()">Add</button>
@@ -12,12 +12,14 @@
 
 	import { ref } from 'vue';
 	import { storeToRefs } from 'pinia';
-	import { useListStore } from '@/stores/list';
+	import { useItemStore } from '@/stores/list';
 
 	import ListItem from '@/components/list/ListItem.vue'
 	
-	const store = useListStore();
-	const { list } = storeToRefs(store);
+	const store = useItemStore();
+	store.loadItems();
+	
+	const { items } = storeToRefs(store);
 
 	const newItem: Ref<Item> = ref({id: '',name: ''});
 
