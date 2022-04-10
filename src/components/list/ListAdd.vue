@@ -10,7 +10,7 @@
 	import type { Item } from '@/models/item.model';
 
 	import { ref } from 'vue';
-	import { useItemStore } from '@/stores/list';
+	import { useItemStore } from '@/stores/items';
 
 	const store = useItemStore();
 	store.loadItems();
@@ -18,7 +18,7 @@
 	const newItem: Ref<Item> = ref({id: '',name: ''});
 
 	const addItemToList = () => {
-		store.addToList(newItem.value.name);
+		store.addItem(newItem.value.name);
 		newItem.value.name = ''
 	}
 </script>

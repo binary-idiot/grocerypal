@@ -1,12 +1,12 @@
 <template>
-	<li @click="store.deleteFromList(item.id)">{{ item.name }}</li>
+	<li @click="store.deleteItem(item.id)">{{ item.name }}</li>
 </template>
 
 <script setup lang="ts">
 	import type { Ref } from 'vue';
 	import type { Item } from '@/models/item.model';
 
-	import { useItemStore } from '@/stores/list'
+	import { useItemStore } from '@/stores/items'
 
 	const props = defineProps<{
 		id: string

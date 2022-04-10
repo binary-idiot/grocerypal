@@ -3,7 +3,7 @@ import { Dexie, type Table } from 'dexie';
 
 const DB_NAME: string = 'grocerypal_db';
 
-export class Database extends Dexie {
+export class DBHelper extends Dexie {
 
 	items: Table<Item, string>;
 
@@ -23,6 +23,10 @@ export class Database extends Dexie {
 
 	async putItem(item: Item) {
 		return await this.items.put(item);
+	}
+
+	async putItems(items: Item[]) {
+		return await this.items.bulkPut(items);
 	}
 
 	async deleteItem(id: string) {
