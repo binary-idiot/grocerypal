@@ -23,7 +23,7 @@ export const useItemStore = defineStore({
   },
   actions: {
     async loadItems() {
-      const items: Item[] = (await api.getItems()).filter(o1 => this.items.some(o2 => o1.id = o2.id));
+      const items: Item[] = (await api.getItems()).filter(o1 => !this.items.some(o2 => o1.id == o2.id));
       if (items.length > 0) {
         await db.putItems(items);
       }

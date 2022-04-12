@@ -11,8 +11,7 @@ export class APIHelper {
 			throw new Error(`An error has occured: ${response.status}`);
 		}
 
-		const items: Item[] = await response.json();
-		return Promise.resolve(items);
+		return await response.json()
 	}
 
 	async postItem(item: Item): Promise<string> {
@@ -28,8 +27,8 @@ export class APIHelper {
 		if (!response.ok) {
 			throw new Error(`An error has occured: ${response.status}`);
 		}
-
-		return await response.json();
+		
+		return await response.text();;
 	}
 
 	async deleteItem(id: string): Promise<boolean> {
