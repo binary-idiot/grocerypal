@@ -1,11 +1,9 @@
 
 import type { Item } from '@/models/item.model'
 
-
-const _API: string = "https://localhost:7046";//import.meta.env.VITE_API_BASE_URL;
-
+const _API: string = import.meta.env.VITE_API_BASE_URL;
 export class APIHelper { 
-	
+
 	async getItems(): Promise<Item[]> {
 		const response = await fetch(`${_API}/items`);
 		
