@@ -1,6 +1,7 @@
 import type { Item } from '@/models/item.model';
 
 import { defineStore } from 'pinia';
+import { v4 as uuidv4 } from 'uuid';
 import { DBHelper } from '@/helpers/db';
 import { APIHelper } from '@/helpers/api';
 
@@ -15,38 +16,46 @@ export const useItemStore = defineStore({
   },
   getters: {
     nextId(): string {
-      return `local-${this.items.length}`
+      return uuidv4();
     },
     getItemById : (state) => {
-      return (id: string) => state.items.find((item) => item.id == id)
+      return (id: string) => state.items.find((item) => item.localId == id)
     }
   },
   actions: {
     async loadItems() {
-      const items: Item[] = (await api.getItems()).filter(o1 => !this.items.some(o2 => o1.id == o2.id));
-      if (items.length > 0) {
-        await db.putItems(items);
+      const dbItems: Item[] = await db.getItems();
+      this.items = dbItems;
+      
+      const apiItems: Item[] = await api.getItems();
+      const updatedItems: Item[] = apiItems.filter(o1 => !dbItems.some(o2 => o1.localId == o2.localId && o1.itemId == o2.itemId));
+      const deletedItems: Item[] = dbItems.filter(o1 => o1.itemId != null && !apiItems.some(o2 => o1.localId == o2.localId));
+
+      if (updatedItems.length > 0) {
+        await db.putItems(updatedItems);
+      }
+
+      if (deletedItems.length > 0) {
+        await db.deleteItems(deletedItems.map(o => o.localId));
       }
 
       this.items = await db.getItems();
     },
 
     async addItem(name: string) {
-      let id: string = this.nextId;
-      const item: Item = {id, name};
+      const item: Item = {localId: this.nextId, name};
 
-      id = await api.postItem(item);
-      item.id = id;
+      item.itemId = await api.postItem(item);
 
       await db.putItem(item);
-      this.items.push({ id, name });
+      this.items.push(item);
 
     },
 
     async deleteItem(id: string) {
       if (await api.deleteItem(id)){
         await db.deleteItem(id);
-        this.items = this.items.filter(i => i.id != id);
+        this.items = this.items.filter(i => i.localId != id);
       }
     }
   },

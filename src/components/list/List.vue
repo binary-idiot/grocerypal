@@ -1,6 +1,6 @@
 <template>
 	<ul>
-		<ListItem v-for="item in items" :id="item.id" />
+		<ListItem v-for="item in items" :id="item.localId" />
 	</ul>
 	<ListAdd />
 </template>

@@ -11,7 +11,7 @@ export class DBHelper extends Dexie {
 		super(DB_NAME);
 
 		this.version(1).stores({
-			items: '&id,name',
+			items: '&localId,&itemId,name',
 		});
 
 		this.items = this.table('items');
@@ -29,7 +29,11 @@ export class DBHelper extends Dexie {
 		return await this.items.bulkPut(items);
 	}
 
-	async deleteItem(id: string) {
-		return await this.items.delete(id);
+	async deleteItem(localId: string) {
+		return await this.items.delete(localId);
+	}
+
+	async deleteItems(localIds: string[]) {
+		return await this.items.bulkDelete(localIds);
 	}
 }
