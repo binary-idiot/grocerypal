@@ -15,7 +15,7 @@
 	const store = useItemStore();
 	store.loadItems();
 
-	const newItem: Ref<Item> = ref({id: '',name: ''});
+	const newItem: Ref<Item> = ref({localId: '',name: ''});
 
 	const addItemToList = () => {
 		store.addItem(newItem.value.name);
