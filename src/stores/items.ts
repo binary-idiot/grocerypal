@@ -52,10 +52,10 @@ export const useItemStore = defineStore({
 
     },
 
-    async deleteItem(id: string) {
-      if (await api.deleteItem(id)){
-        await db.deleteItem(id);
-        this.items = this.items.filter(i => i.localId != id);
+    async deleteItem(item: Item) {
+      if (item.itemId == undefined || await api.deleteItem(item.itemId)){
+        await db.deleteItem(item.localId);
+        this.items = this.items.filter(i => i.localId != item.localId);
       }
     }
   },
