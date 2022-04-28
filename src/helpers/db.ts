@@ -11,7 +11,7 @@ export class DBHelper extends Dexie {
 		super(DB_NAME);
 
 		this.version(1).stores({
-			items: '&localId,&itemId,name',
+			items: '&localId,&id,name',
 		});
 
 		this.items = this.table('items');

@@ -28,8 +28,8 @@ export const useItemStore = defineStore({
       this.items = dbItems;
       
       const apiItems: Item[] = await api.getItems();
-      const updatedItems: Item[] = apiItems.filter(o1 => !dbItems.some(o2 => o1.localId == o2.localId && o1.itemId == o2.itemId));
-      const deletedItems: Item[] = dbItems.filter(o1 => o1.itemId != null && !apiItems.some(o2 => o1.localId == o2.localId));
+      const updatedItems: Item[] = apiItems.filter(o1 => !dbItems.some(o2 => o1.localId == o2.localId && o1.id == o2.id));
+      const deletedItems: Item[] = dbItems.filter(o1 => o1.id != null && !apiItems.some(o2 => o1.localId == o2.localId));
 
       if (updatedItems.length > 0) {
         await db.putItems(updatedItems);
@@ -45,7 +45,7 @@ export const useItemStore = defineStore({
     async addItem(name: string) {
       const item: Item = {localId: this.nextId, name};
 
-      item.itemId = await api.postItem(item);
+      item.id = await api.postItem(item);
 
       await db.putItem(item);
       this.items.push(item);
@@ -53,7 +53,7 @@ export const useItemStore = defineStore({
     },
 
     async deleteItem(item: Item) {
-      if (item.itemId == undefined || await api.deleteItem(item.itemId)){
+      if (item.id == undefined || await api.deleteItem(item.id)){
         await db.deleteItem(item.localId);
         this.items = this.items.filter(i => i.localId != item.localId);
       }
