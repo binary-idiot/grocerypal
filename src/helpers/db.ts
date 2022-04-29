@@ -10,7 +10,7 @@ export class DBHelper extends Dexie {
 	constructor() {
 		super(DB_NAME);
 
-		this.version(1).stores({
+		this.version(2).stores({
 			items: '&localId,&id,name',
 		});
 
