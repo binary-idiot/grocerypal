@@ -1,8 +1,8 @@
 
-import type { Item } from '@/models/item.model'
+import type { Item } from '@/data/item/item.model'
 
 const _API: string = import.meta.env.VITE_API_BASE_URL;
-export class APIHelper { 
+export class ItemAPI { 
 
 	async getItems(): Promise<Item[]> {
 		const response = await fetch(`${_API}/items`);

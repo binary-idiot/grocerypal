@@ -1,20 +1,13 @@
-import type { Item } from '@/models/item.model'
-import { Dexie, type Table } from 'dexie';
+import type { Item } from './item.model';
+import type { Table } from 'dexie';
 
-const DB_NAME: string = 'grocerypal_db';
+import { Database } from '@/data/db';
 
-export class DBHelper extends Dexie {
-
-	items: Table<Item, string>;
+export class ItemDB {
+	private items: Table<Item, string>;
 
 	constructor() {
-		super(DB_NAME);
-
-		this.version(2).stores({
-			items: '&localId,&id,name',
-		});
-
-		this.items = this.table('items');
+		this.items = new Database().table('items');
 	}
 
 	async getItems(): Promise<Item[]> {
