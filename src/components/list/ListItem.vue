@@ -13,7 +13,6 @@
 	}>()
 
 	const store = useItemStore();
-	store.loadItems();
 	
 	const item: Item = store.getItemById(props.id)!;
 </script>

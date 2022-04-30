@@ -13,7 +13,6 @@
 	import { useItemStore } from '@/stores/items';
 
 	const store = useItemStore();
-	store.loadItems();
 
 	const newItem: Ref<Item> = ref({localId: '',name: ''});
 
