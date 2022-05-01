@@ -7,12 +7,12 @@
 
 <script setup lang="ts">
 	import { storeToRefs } from 'pinia';
-	import { useItemStore } from '@/stores/items';
+	import { useListStore } from '@/stores/lists';
 
 	import ListItem from '@/components/list/ListItem.vue'
 	import ListAdd from '@/components/list/ListAdd.vue';
 	
-	const store = useItemStore();
+	const store = useListStore();
 	store.loadItems();
 	
 	const { items } = storeToRefs(store);

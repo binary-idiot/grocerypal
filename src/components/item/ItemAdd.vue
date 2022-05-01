@@ -7,14 +7,14 @@
 
 <script setup lang="ts">
 	import type { Ref } from 'vue';
-	import type { Item } from '@/models/item.model';
+	import type { Item } from '@/data/item/item.model';
 
 	import { ref } from 'vue';
-	import { useItemStore } from '@/stores/items';
+	import { useListStore } from '@/stores/lists';
 
-	const store = useItemStore();
+	const store = useListStore();
 
-	const newItem: Ref<Item> = ref({localId: '',name: ''});
+	const newItem: Ref<Item> = ref({localId: '', name: '', listId: ''});
 
 	const addItemToList = () => {
 		store.addItem(newItem.value.name);

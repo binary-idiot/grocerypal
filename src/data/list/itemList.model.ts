@@ -1,6 +1,5 @@
 import type { BaseModel } from "@/data/base.model";
 
-export interface Item extends BaseModel{
+export interface ItemList extends BaseModel {
 	name: string;
-	listId: string;
 }

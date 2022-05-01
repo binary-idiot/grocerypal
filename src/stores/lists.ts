@@ -1,4 +1,5 @@
 import type { Item } from '@/data/item/item.model';
+import type { ItemList } from '@/data/list/itemList.model';
 
 import { defineStore } from 'pinia';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,20 +8,25 @@ import { ItemAPI } from '@/data/item/item.api';
 
 const itemDB: ItemDB = new ItemDB();
 const itemAPI: ItemAPI = new ItemAPI();
-export const useItemStore = defineStore({
+export const useListStore = defineStore({
   id: "items",
   state: () => {
    return {
      items: [] as Item[],
+     lists: [] as ItemList[],
+     currentListId: '' as string,
    }
   },
   getters: {
-    nextId(): string {
+    getNewId(): string {
       return uuidv4();
     },
     getItemById : (state) => {
       return (id: string) => state.items.find((item) => item.localId == id)
-    }
+    },
+    getCurrentList: (state) =>{
+      () => {state.lists.find((list) => list.localId == state.currentListId)}
+    },
   },
   actions: {
     async loadItems() {
@@ -43,7 +49,7 @@ export const useItemStore = defineStore({
     },
 
     async addItem(name: string) {
-      const item: Item = {localId: this.nextId, name};
+      const item: Item = {localId: this.getNewId, name, listId: ''};
 
       item.id = await itemAPI.postItem(item);
 

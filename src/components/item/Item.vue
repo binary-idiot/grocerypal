@@ -4,15 +4,15 @@
 
 <script setup lang="ts">
 	import type { Ref } from 'vue';
-	import type { Item } from '@/models/item.model';
+	import type { Item } from '@/data/item/item.model';
 
-	import { useItemStore } from '@/stores/items'
+	import { useListStore } from '@/stores/lists'
 
 	const props = defineProps<{
 		id: string
 	}>()
 
-	const store = useItemStore();
+	const store = useListStore();
 	
 	const item: Item = store.getItemById(props.id)!;
 </script>

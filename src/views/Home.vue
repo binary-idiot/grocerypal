@@ -1,11 +1,11 @@
 <template>
 	<h1>Grocery Pal</h1>
-	<List/>
+	<ItemList/>
 	
 </template>
 
 <script setup lang="ts">
-	import List from '@/components/list/List.vue';
+	import ItemList from '@/components/lists/List.vue';
 </script>
 
 <style module lang="scss">
